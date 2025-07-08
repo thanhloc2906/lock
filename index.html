@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Set Screen Lock</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+    }
+
+    /* Nền kiểu đang lập trình */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.05) 0px,
+        rgba(0, 255, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      z-index: -2;
+    }
+
+    .matrix {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: #0f0;
+      font-size: 14px;
+      z-index: -1;
+      white-space: pre;
+      opacity: 0.2;
+      animation: scrollText 30s linear infinite;
+    }
+
+    @keyframes scrollText {
+      from { transform: translateY(100%); }
+      to { transform: translateY(-100%); }
+    }
+
+    /* LED đổi màu */
+    .rainbow-text {
+      background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 5s linear infinite;
+      background-size: 400% 100%;
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      margin-top: 20px;
+      border: none;
+      border-bottom: 2px solid cyan;
+      outline: none;
+      background-color: #111;
+      color: white;
+    }
+
+    .error {
+      margin-top: 8px;
+      font-size: 14px;
+      color: lightgray;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: linear-gradient(to right, cyan, magenta);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix" id="matrix-text">
+    // Welcome to the system
+    // Initializing security...
+    // Set your password below...
+    // Access will be granted upon validation
+    // Encrypting data...
+    // Standby...
+  </div>
+
+  <div class="container">
+    <h2 class="rainbow-text">Set Screen Lock</h2>
+    <p class="rainbow-text">For security, enter password</p>
+    <input type="password" id="password" placeholder="Enter password" />
+    <div class="error" id="errorText">Must enter correct password</div>
+    <br>
+    <button onclick="submitPassword()">Continue</button>
+  </div>
+
+  <script>
+    const correctPassword = "0807";
+
+    function submitPassword() {
+      const pw = document.getElementById("password").value;
+      const error = document.getElementById("errorText");
+
+      if (pw === correctPassword) {
+        window.location.href = "https://thanhloc2906.github.io/hpbd0807/home"; // Anh đổi link này nếu muốn
+      } else {
+        error.textContent = "Incorrect password. Try again.";
+        error.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
